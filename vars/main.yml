@@ -12,3 +12,20 @@ minio_default_server_artifact_url: "https://dl.minio.io/server/minio/release/lin
 minio_default_client_artifact_url: "https://dl.minio.io/client/mc/release/linux-{{ go_arch }}/mc"
 
 minio_server_old_credentials_envfile: "{{ minio_server_envfile }}.pre"
+
+# Python SNI packages
+minio_python_sni_packages:
+  - python-pip
+  - python-dev
+  - libssl-dev
+  - libffi-dev
+
+# There extra pip dependencies are needed to add SSL SNI support to
+# Python version prior to 2.7.9.
+minio_python_sni_pip_dependencies:
+  - pyopenssl
+  - ndg-httpsclient
+  - pyasn1
+
+minio_service_systemd_path: "/etc/systemd/system/minio.service"
+minio_service_initd_path: "/etc/init.d/minio"

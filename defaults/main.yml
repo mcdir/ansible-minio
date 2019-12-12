@@ -72,3 +72,8 @@ minio_install_client: true
 
 # Allow to explicitly define network interface on which services are made available on.
 minio_network_interface: ""
+
+# Purge minio
+minio_purge: "no"
+minio_purge_python_sni: "yes"
+minio_purge_data: "yes"
