@@ -6,7 +6,8 @@ scenario:
 driver:
   name: docker
 
-dependency: {}
+dependency:
+  name: galaxy
 
 platforms:
   - name: minio-centos-7
