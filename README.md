@@ -110,6 +110,12 @@ minio_install_server: true
 minio_install_client: true
 ```
 
+Options to modify number of parity blocks
+```yaml
+minio_storage_class_standard:
+minio_storage_class_rrs:
+```
+
 Switches to disable minio server and/or minio client installation.
 
 ## Dependencies
