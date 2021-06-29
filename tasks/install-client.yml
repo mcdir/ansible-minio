@@ -18,10 +18,12 @@
     - minio_client_artifact_url | length > 0
     - minio_client_release | length == 0
 
-- name: "Get the Minio client checksum for {{ go_arch }} architecture"
-  set_fact:
-    _minio_client_checksum: "sha256:{{ lookup('url', _minio_client_download_url + '.sha256sum').split(' ')[0] }}"
-  when: minio_client_artifact_checksum | length == 0
+# https://everything.curl.dev/usingcurl/netrc
+# An unhandled exception occurred while running the lookup plugin 'url'. Error was a <class 'netrc.NetrcParseError'>, original message: ~/.netrc access too permissive: access permissions must restrict access to only the owner (/home/mcdir/.netrc, line 3)
+#- name: "Get the Minio client checksum for {{ go_arch }} architecture"
+#  set_fact:
+#    _minio_client_checksum: "sha256:{{ lookup('url', _minio_client_download_url + '.sha256sum').split(' ')[0] }}"
+#  when: minio_client_artifact_checksum | length == 0
 
 - name: "Override the Minio client  checksum"
   set_fact:
@@ -35,7 +37,7 @@
     owner: "root"
     group: "root"
     mode: 0755
-    checksum: "{{ _minio_client_checksum }}"
+#    checksum: "{{ _minio_client_checksum }}"
   register: _download_client
   until: _download_client is succeeded
   retries: 5

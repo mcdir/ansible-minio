@@ -44,6 +44,7 @@ provisioner:
     diff: True
     v: True
   playbooks:
+    create: ../resources/create.yml
     prepare: ../resources/prepare.yml
     converge: ./playbook.yml
 
@@ -57,3 +58,5 @@ verifier:
     vvv: True
   additional_files_or_dirs:
     - ../resources/tests/
+  lint:
+    name: flake8
