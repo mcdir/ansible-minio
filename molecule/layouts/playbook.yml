@@ -1,0 +1,19 @@
+---
+
+- hosts: minio
+  any_errors_fatal: true
+  vars_files:
+    - ./../resources/vars.yml
+  vars:
+    minio_layouts:
+      server1:
+        server_addr: ":9091"
+      server2:
+        server_addr: ":9092"
+  roles:
+    - role: ansible-minio
+      vars:
+        minio_layout: server1
+    - role: ansible-minio
+      vars:
+        minio_layout: server2

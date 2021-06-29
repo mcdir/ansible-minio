@@ -1,7 +1,7 @@
 ---
 
 scenario:
-  name: alternative
+  name: layouts
 
 driver:
   name: docker
@@ -9,31 +9,21 @@ driver:
 dependency: {}
 
 platforms:
-  - name: minio-centos-7
-    image: paulfantom/centos-molecule:7
-    privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: minio-fedora-27
-    image: paulfantom/fedora-molecule:27
-    privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: minio-debian-9
-    image: paulfantom/debian-molecule:9
-    privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: minio-ubuntu-18.04
+  - name: instance1
     image: paulfantom/ubuntu-molecule:18.04
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: minio-ubuntu-16.04
-    image: paulfantom/ubuntu-molecule:16.04
+    groups:
+      - minio
+
+  - name: instance2
+    image: paulfantom/ubuntu-molecule:18.04
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    groups:
+      - minio
 
 provisioner:
   name: ansible
@@ -54,5 +44,6 @@ verifier:
   name: testinfra
   options:
     vvv: True
+    s: true
   additional_files_or_dirs:
     - ../resources/tests/

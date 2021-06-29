@@ -2,10 +2,25 @@
 
 - name: reload minio systemd
   systemd:
-    name: minio
+    name: "{{ _minio_service_name }}"
     daemon_reload: True
 
 - name: restart minio
   service:
-    name: minio
+    name: "{{ _minio_service_name }}"
     state: restarted
+
+- name: verify minio is responsive
+  uri:
+    url: "http://127.0.0.1{{ minio_server_addr }}/minio/health/live"
+    timeout: 6
+  register: response
+  failed_when: response.status != 200
+
+- name: rewrite previous credentials
+  template:
+    src: minio.old-credentials.env.j2
+    dest: "{{ minio_server_old_credentials_envfile }}"
+    owner: "root"
+    group: "{{ minio_group }}"
+    mode: 0640

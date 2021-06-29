@@ -1,12 +1,41 @@
 ---
+# two layouts: one for each minio instance we want to run on a node.
+minio_layouts:
+# The first minio instance on this server.
+  server1:
+    server_addr: ":9091"
+  # server_datadir: String
+#
+# The second minio instance on this server may look like.
+# server2:
+#   server_addr: ":9092"
+#   server_datadir: String
+
+# NOTE: to configure more instances on the same host, apply role multiple times
+# Control which layout is used every time the role is applied
+# minio_layout: String
+
+# It's impossible to definitively determine the group name from the host
+# this role is applied to, thus it can be overridden
+minio_group_name: "minio"
 
 # Minio binaries path
 minio_server_bin: /usr/local/bin/minio
 minio_client_bin: /usr/local/bin/mc
 
-# Minio release to install. default if lastet
+# Define version and origin (mutual exclusive)
+#
+# (A) Minio release version (default: latest)
 minio_server_release: ""
 minio_client_release: ""
+#
+# (B) Full download URL
+minio_server_artifact_url: ""
+minio_client_artifact_url: ""
+# Optional
+# Format: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html#parameter-checksum
+minio_server_artifact_checksum: ""
+minio_client_artifact_checksum: ""
 
 # Runtime user and group for the Minio server service
 minio_user: minio
@@ -39,3 +68,6 @@ minio_secret_key: ""
 # Switches to enable/disable the Minio server and/or Minio client installation.
 minio_install_server: true
 minio_install_client: true
+
+# Allow to explicitly define network interface on which services are made available on.
+minio_network_interface: ""
