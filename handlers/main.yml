@@ -17,12 +17,4 @@
   register: _result
   until: _result.status == 200
   retries: 30 # 30 * 2 seconds = 1minute
-  delay: 2 
-
-- name: rewrite previous credentials
-  template:
-    src: minio.old-credentials.env.j2
-    dest: "{{ minio_server_old_credentials_envfile }}"
-    owner: "root"
-    group: "{{ minio_group }}"
-    mode: 0640
+  delay: 2
