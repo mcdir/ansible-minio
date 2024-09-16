@@ -102,8 +102,8 @@ minio_server_opts: ""
 Additional CLI options that must be appended to the minio server start command.
 
 ```yaml
-minio_access_key: ""
-minio_secret_key: ""
+minio_root_user: ""
+minio_root_password: ""
 ```
 
 Minio access and secret keys. Change the value in order to rotate credentials. 

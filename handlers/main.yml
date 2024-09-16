@@ -14,13 +14,7 @@
   uri:
     url: "http://127.0.0.1{{ minio_server_addr }}/minio/health/live"
     timeout: 6
-  register: response
-  failed_when: response.status != 200
-
-- name: rewrite previous credentials
-  template:
-    src: minio.old-credentials.env.j2
-    dest: "{{ minio_server_old_credentials_envfile }}"
-    owner: "root"
-    group: "{{ minio_group }}"
-    mode: 0640
+  register: _result
+  until: _result.status == 200
+  retries: 30 # 30 * 2 seconds = 1minute
+  delay: 2
